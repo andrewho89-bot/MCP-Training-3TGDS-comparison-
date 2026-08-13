@@ -1,0 +1,6 @@
+{
+  "name": "Version Comparison Hosting",
+  "description": "Side-by-side comparison hosting platform for Version 1 and Version 2 websites.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
