@@ -38,3 +38,4 @@ export interface ComparisonMetric {
   v2Score: number;
   notes: string;
 }
+

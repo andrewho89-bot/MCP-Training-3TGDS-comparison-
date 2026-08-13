@@ -9,6 +9,7 @@ interface OverlaySliderViewProps {
   v2Url: string;
   devicePreset: DevicePreset;
   scale: number;
+  verticalScale: number;
   refreshKeys: { v1: number; v2: number };
   onRefreshV1: () => void;
   onRefreshV2: () => void;
@@ -21,6 +22,7 @@ export const OverlaySliderView: React.FC<OverlaySliderViewProps> = ({
   v2Url,
   devicePreset,
   scale,
+  verticalScale,
   refreshKeys,
   onRefreshV1,
   onRefreshV2,
@@ -28,6 +30,8 @@ export const OverlaySliderView: React.FC<OverlaySliderViewProps> = ({
   const [sliderPos, setSliderPos] = useState(50); // percentage 0 to 100
   const [isDragging, setIsDragging] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const calculatedHeight = Math.round(650 * verticalScale);
 
   const handleMove = useCallback(
     (clientX: number) => {
@@ -59,7 +63,7 @@ export const OverlaySliderView: React.FC<OverlaySliderViewProps> = ({
   );
 
   return (
-    <div className="flex flex-col h-full p-3 gap-2 select-none overflow-hidden">
+    <div className="flex flex-col p-3 gap-2 select-none">
       {/* Slider Header Control */}
       <div className="flex items-center justify-between px-4 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-xs shrink-0 text-xs">
         <div className="flex items-center gap-2">
@@ -94,7 +98,8 @@ export const OverlaySliderView: React.FC<OverlaySliderViewProps> = ({
         onMouseLeave={() => setIsDragging(false)}
         onMouseMove={handleMouseMove}
         onTouchMove={handleTouchMove}
-        className="relative flex-1 w-full h-full bg-slate-900/5 dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm"
+        className="relative w-full bg-slate-900/5 dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm"
+        style={{ height: `${calculatedHeight}px` }}
       >
         {/* Layer 2: Version 2 (Base Layer beneath reveal) */}
         <div className="absolute inset-0 w-full h-full">

@@ -10,6 +10,7 @@ interface SideBySideViewProps {
   v2Url: string;
   devicePreset: DevicePreset;
   scale: number;
+  verticalScale: number;
   refreshKeys: { v1: number; v2: number };
   onRefreshV1: () => void;
   onRefreshV2: () => void;
@@ -23,6 +24,7 @@ export const SideBySideView: React.FC<SideBySideViewProps> = ({
   v2Url,
   devicePreset,
   scale,
+  verticalScale,
   refreshKeys,
   onRefreshV1,
   onRefreshV2,
@@ -69,13 +71,13 @@ export const SideBySideView: React.FC<SideBySideViewProps> = ({
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseUp}
-      className={`relative w-full h-full flex flex-col lg:flex-row p-3 gap-3 overflow-hidden select-none ${
+      className={`relative w-full flex flex-col lg:flex-row p-3 gap-3 select-none ${
         isDragging ? 'cursor-col-resize' : ''
       }`}
     >
       {/* Left Frame */}
       <div
-        className="w-full lg:h-full flex-1 min-h-[350px]"
+        className="w-full flex-1"
         style={{ flexBasis: `${splitRatio}%` }}
       >
         <IframeFrame
@@ -83,6 +85,7 @@ export const SideBySideView: React.FC<SideBySideViewProps> = ({
           fullUrl={leftUrl}
           devicePreset={devicePreset}
           scale={scale}
+          verticalScale={verticalScale}
           refreshKey={leftKey}
           onRefresh={leftRefresh}
         />
@@ -94,14 +97,14 @@ export const SideBySideView: React.FC<SideBySideViewProps> = ({
         className="hidden lg:flex items-center justify-center w-3 hover:w-4 hover:bg-indigo-500/20 active:bg-indigo-500/30 rounded-full transition-all cursor-col-resize group shrink-0"
         title="Drag to resize split ratio"
       >
-        <div className="w-1.5 h-10 bg-slate-300 dark:bg-slate-700 group-hover:bg-indigo-500 rounded-full flex items-center justify-center transition-colors">
+        <div className="w-1.5 h-16 bg-slate-300 dark:bg-slate-700 group-hover:bg-indigo-500 rounded-full flex items-center justify-center transition-colors">
           <GripVertical className="w-3 h-3 text-slate-500 dark:text-slate-400 group-hover:text-white" />
         </div>
       </div>
 
       {/* Right Frame */}
       <div
-        className="w-full lg:h-full flex-1 min-h-[350px]"
+        className="w-full flex-1"
         style={{ flexBasis: `${100 - splitRatio}%` }}
       >
         <IframeFrame
@@ -109,6 +112,7 @@ export const SideBySideView: React.FC<SideBySideViewProps> = ({
           fullUrl={rightUrl}
           devicePreset={devicePreset}
           scale={scale}
+          verticalScale={verticalScale}
           refreshKey={rightKey}
           onRefresh={rightRefresh}
         />

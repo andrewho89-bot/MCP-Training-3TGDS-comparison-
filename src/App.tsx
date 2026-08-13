@@ -13,6 +13,7 @@ export default function App() {
   const [viewMode, setViewMode] = useState<ViewMode>('split');
   const [devicePreset, setDevicePreset] = useState<DevicePreset>('responsive');
   const [scale, setScale] = useState<number>(1);
+  const [verticalScale, setVerticalScale] = useState<number>(5); // Default to 5x vertical size
   const [currentPath, setCurrentPath] = useState<string>('');
   const [isSyncedPath, setIsSyncedPath] = useState<boolean>(true);
   const [isSwapped, setIsSwapped] = useState<boolean>(false);
@@ -70,7 +71,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-100 dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans transition-colors">
+    <div className="min-h-screen flex flex-col bg-slate-100 dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans transition-colors overflow-x-hidden">
       {/* Top Main Navigation Header */}
       <Header
         viewMode={viewMode}
@@ -99,6 +100,8 @@ export default function App() {
         setDevicePreset={setDevicePreset}
         scale={scale}
         setScale={setScale}
+        verticalScale={verticalScale}
+        setVerticalScale={setVerticalScale}
         v1BaseUrl={v1BaseUrl}
         v2BaseUrl={v2BaseUrl}
         v1FullUrl={v1FullUrl}
@@ -107,7 +110,7 @@ export default function App() {
       />
 
       {/* Main Viewport Content Area */}
-      <main className="flex-1 relative w-full overflow-hidden flex flex-col">
+      <main className="flex-1 relative w-full overflow-y-auto flex flex-col">
         {viewMode === 'split' && (
           <SideBySideView
             v1Version={INITIAL_VERSIONS.v1}
@@ -116,6 +119,7 @@ export default function App() {
             v2Url={v2FullUrl}
             devicePreset={devicePreset}
             scale={scale}
+            verticalScale={verticalScale}
             refreshKeys={refreshKeys}
             onRefreshV1={handleRefreshV1}
             onRefreshV2={handleRefreshV2}
@@ -131,6 +135,7 @@ export default function App() {
             v2Url={v2FullUrl}
             devicePreset={devicePreset}
             scale={scale}
+            verticalScale={verticalScale}
             refreshKeys={refreshKeys}
             onRefreshV1={handleRefreshV1}
             onRefreshV2={handleRefreshV2}
@@ -147,6 +152,7 @@ export default function App() {
             v2Url={v2FullUrl}
             devicePreset={devicePreset}
             scale={scale}
+            verticalScale={verticalScale}
             refreshKeys={refreshKeys}
             onRefreshV1={handleRefreshV1}
             onRefreshV2={handleRefreshV2}

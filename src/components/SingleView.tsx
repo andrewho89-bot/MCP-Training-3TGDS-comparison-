@@ -11,6 +11,7 @@ interface SingleViewProps {
   v2Url: string;
   devicePreset: DevicePreset;
   scale: number;
+  verticalScale: number;
   refreshKeys: { v1: number; v2: number };
   onRefreshV1: () => void;
   onRefreshV2: () => void;
@@ -25,6 +26,7 @@ export const SingleView: React.FC<SingleViewProps> = ({
   v2Url,
   devicePreset,
   scale,
+  verticalScale,
   refreshKeys,
   onRefreshV1,
   onRefreshV2,
@@ -35,7 +37,7 @@ export const SingleView: React.FC<SingleViewProps> = ({
   const currentKey = activeVersion === 'v1' ? refreshKeys.v1 : refreshKeys.v2;
 
   return (
-    <div className="flex flex-col h-full p-3 gap-2 overflow-hidden">
+    <div className="flex flex-col p-3 gap-2">
       {/* Top Toggle Bar */}
       <div className="flex items-center justify-between px-4 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-xs shrink-0">
         <div className="flex items-center gap-2">
@@ -67,12 +69,13 @@ export const SingleView: React.FC<SingleViewProps> = ({
       </div>
 
       {/* Frame Container */}
-      <div className="flex-1 w-full h-full min-h-[450px]">
+      <div className="w-full">
         <IframeFrame
           version={currentVersion}
           fullUrl={currentUrl}
           devicePreset={devicePreset}
           scale={scale}
+          verticalScale={verticalScale}
           refreshKey={currentKey}
           onRefresh={currentRefresh}
         />

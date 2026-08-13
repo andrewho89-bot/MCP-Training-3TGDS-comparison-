@@ -12,7 +12,8 @@ import {
   Unlock,
   CheckCircle2,
   Sliders,
-  RotateCcw
+  RotateCcw,
+  ArrowUpDown
 } from 'lucide-react';
 import { DevicePreset, ViewportConfig } from '../types';
 import { DEVICE_PRESETS } from '../data/versionsData';
@@ -26,6 +27,8 @@ interface ToolbarProps {
   setDevicePreset: (preset: DevicePreset) => void;
   scale: number;
   setScale: (scale: number) => void;
+  verticalScale: number;
+  setVerticalScale: (scale: number) => void;
   v1BaseUrl: string;
   v2BaseUrl: string;
   v1FullUrl: string;
@@ -42,6 +45,8 @@ export const Toolbar: React.FC<ToolbarProps> = ({
   setDevicePreset,
   scale,
   setScale,
+  verticalScale,
+  setVerticalScale,
   v1BaseUrl,
   v2BaseUrl,
   v1FullUrl,
@@ -118,6 +123,23 @@ export const Toolbar: React.FC<ToolbarProps> = ({
                 <span className="hidden lg:inline">{preset.label.split(' ')[0]}</span>
               </button>
             ))}
+          </div>
+
+          {/* Vertical Height Scale Control (5x Bigger Vertical) */}
+          <div className="flex items-center gap-1.5 bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200 dark:border-indigo-800/80 px-2.5 py-1 rounded-lg text-indigo-700 dark:text-indigo-300 font-medium">
+            <ArrowUpDown className="w-3.5 h-3.5 text-indigo-500" />
+            <span className="text-[11px] font-mono hidden sm:inline">Vertical:</span>
+            <select
+              value={verticalScale}
+              onChange={(e) => setVerticalScale(Number(e.target.value))}
+              className="bg-transparent border-none outline-none font-mono text-indigo-800 dark:text-indigo-200 text-xs cursor-pointer font-bold"
+            >
+              <option value={1} className="bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200">1x (650px)</option>
+              <option value={2} className="bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200">2x (1300px)</option>
+              <option value={3} className="bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200">3x (1950px)</option>
+              <option value={5} className="bg-white dark:bg-slate-900 text-indigo-600 font-bold">5x (3250px Default)</option>
+              <option value={7} className="bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200">7x (4550px)</option>
+            </select>
           </div>
 
           {/* Scale / Zoom Control */}

@@ -23,6 +23,7 @@ interface IframeFrameProps {
   fullUrl: string;
   devicePreset: DevicePreset;
   scale: number;
+  verticalScale?: number;
   refreshKey: number;
   onRefresh: () => void;
   badgeExtra?: string;
@@ -33,6 +34,7 @@ export const IframeFrame: React.FC<IframeFrameProps> = ({
   fullUrl,
   devicePreset,
   scale,
+  verticalScale = 5,
   refreshKey,
   onRefresh,
   badgeExtra,
@@ -61,11 +63,15 @@ export const IframeFrame: React.FC<IframeFrameProps> = ({
 
   const config = getPresetConfig();
   const isConstrainedDevice = devicePreset !== 'responsive';
+  const calculatedHeight = Math.round(650 * verticalScale);
 
   return (
-    <div className={`flex flex-col h-full bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden transition-all ${
-      isFullscreen ? 'fixed inset-4 z-50 shadow-2xl border-indigo-500/50' : ''
-    }`}>
+    <div 
+      className={`flex flex-col bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden transition-all ${
+        isFullscreen ? 'fixed inset-4 z-50 shadow-2xl border-indigo-500/50' : 'w-full'
+      }`}
+      style={!isFullscreen ? { height: `${calculatedHeight}px` } : undefined}
+    >
       {/* Frame Header */}
       <div className="flex items-center justify-between px-3.5 py-2.5 bg-slate-100/80 dark:bg-slate-800/80 border-b border-slate-200 dark:border-slate-700/80 shrink-0 select-none">
         <div className="flex items-center gap-2 min-w-0">
